@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11111b">
+<title>Omarchy Search</title>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #11111b;
+  --panel: #181825;
+  --border: #313244;
+  --text: #cdd6f4;
+  --muted: #a6adc8;
+  --accent: #cba6f7;
+  --blue: #89b4fa;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 25%,
+      #302747 0%, #191827 38%, var(--bg) 75%);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.launcher {
+  width: 100%;
+  max-width: 620px;
+  border: 1px solid #45405a;
+  background: rgba(24, 24, 37, 0.96);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 25px 90px #0008;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 23px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: #302747;
+  color: var(--accent);
+  border-radius: 12px;
+  font-size: 23px;
+}
+
+h1 {
+  font-size: 19px;
+  margin: 0 0 5px;
+  letter-spacing: .2px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.key {
+  margin-left: auto;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 6px 8px;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: #11111b;
+  border: 1px solid #58516d;
+  border-radius: 12px;
+  padding: 0 14px;
+  height: 56px;
+  transition: border .2s, box-shadow .2s;
+}
+
+.searchbox:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px #cba6f71c;
+}
+
+.search-icon {
+  color: var(--accent);
+  font-size: 20px;
+}
+
+input {
+  flex: 1;
+  width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font-size: 16px;
+}
+
+input::placeholder { color: #777b96; }
+
+.search-button {
+  background: var(--accent);
+  color: #181825;
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.section {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 24px 0 10px;
+}
+
+.actions {
+  display: grid;
+  gap: 8px;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action:hover, .action:focus-visible {
+  background: #313244;
+  border-color: #45405a;
+  outline: none;
+}
+
+.action-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #242438;
+  font-size: 17px;
+}
+
+.action-copy { flex: 1; }
+
+.action-title { font-weight: 600; }
+
+.action-desc {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.arrow { color: var(--muted); }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 420px) {
+  .launcher { padding: 16px; }
+  .key { display: none; }
+}
+</style>
+</head>
+
+<body>
+<main class="launcher">
+  <header class="top">
+    <div class="logo">⌘</div>
+    <div>
+      <h1>Omarchy Search</h1>
+      <div class="subtitle">A little Linux-inspired launcher</div>
+    </div>
+    <div class="key">SUPER + SPACE</div>
+  </header>
+
+  <form id="searchForm" class="searchbox">
+    <span class="search-icon">⌕</span>
+    <input id="query" type="text"
+      placeholder="Search anything..."
+      autocomplete="off" autofocus>
+    <button class="search-button" type="submit">
+      Go ↵
+    </button>
+  </form>
+
+  <div class="section">Quick actions</div>
+
+  <div class="actions">
+    <button class="action" data-action="web">
+      <span class="action-icon">⌕</span>
+      <span class="action-copy">
+        <div class="action-title">Search the web</div>
+        <div class="action-desc">Find anything with DuckDuckGo</div>
+      </span>
+      <span class="arrow">↗</span>
+    </button>
+
+    <button class="action" data-action="youtube">
+      <span class="action-icon">▷</span>
+      <span class="action-copy">
+        <div class="action-title">YouTube</div>
+        <div class="action-desc">Search videos</div>
+      </span>
+      <span class="arrow">↗</span>
+    </button>
+
+    <button class="action" data-action="terminal">
+      <span class="action-icon">$_</span>
+      <span class="action-copy">
+        <div class="action-title">Linux terminal</div>
+        <div class="action-desc">Connect to your Linux computer</div>
+      </span>
+      <span class="arrow">↗</span>
+    </button>
+
+    <button class="action" data-action="settings">
+      <span class="action-icon">⚙</span>
+      <span class="action-copy">
+        <div class="action-title">iPad settings</div>
+        <div class="action-desc">Device settings and appearance</div>
+      </span>
+      <span class="arrow">↗</span>
+    </button>
+  </div>
+
+  <footer class="footer">
+    <span>OMARCHY-INSPIRED · iPad EDITION</span>
+    <span>ESC · Clear search</span>
+  </footer>
+</main>
+
+<script>
+const query = document.getElementById("query");
+const form = document.getElementById("searchForm");
+
+function openUrl(url) {
+  window.location.href = url;
+}
+
+function searchWeb(value, engine = "web") {
+  const q = value.trim();
+  if (!q) {
+    query.focus();
+    return;
+  }
+
+  // Open a typed website directly, otherwise search.
+  if (engine === "web" &&
+      /^(https?:\/\/|www\.)/i.test(q)) {
+    openUrl(q.startsWith("www.") ? "https://" + q : q);
+    return;
+  }
+
+  const urls = {
+    web: "https://duckduckgo.com/?q=",
+    youtube: "https://www.youtube.com/results?search_query="
+  };
+
+  openUrl((urls[engine] || urls.web) + encodeURIComponent(q));
+}
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  searchWeb(query.value);
+});
+
+document.querySelectorAll("[data-action]").forEach(button => {
+  button.addEventListener("click", () => {
+    const action = button.dataset.action;
+
+    if (action === "web") {
+      searchWeb(query.value);
+    } else if (action === "youtube") {
+      if (query.value.trim()) {
+        searchWeb(query.value, "youtube");
+      } else {
+        openUrl("https://www.youtube.com/");
+      }
+    } else if (action === "terminal") {
+      alert("Configure your SSH terminal app or Linux computer first.");
+    } else if (action === "settings") {
+      alert("Open the Settings app on your iPad.");
+    }
+  });
+});
+
+// Keyboard shortcuts work while this page has keyboard focus.
+// iPadOS may reserve Super + Space for system Spotlight.
+document.addEventListener("keydown", event => {
+  if (event.metaKey && event.code === "Space") {
+    event.preventDefault();
+    query.focus();
+  }
+
+  if (event.metaKey && event.key.toLowerCase() === "k") {
+    event.preventDefault();
+    query.focus();
+  }
+
+  if (event.key === "Escape") {
+    query.value = "";
+    query.focus();
+  }
+});
+</script>
+</body>
+</html>
